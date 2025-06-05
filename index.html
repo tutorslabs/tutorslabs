@@ -292,51 +292,18 @@
           <div class="col-lg-6">
             <div class="card border-0 shadow">
               <div class="card-body p-4">
-                <form class="contact-form">
+                <form action="https://api.web3forms.com/submit" method="POST">
+                  <input type="hidden" name="access_key" value="272306f8-16f8-4751-9b02-8c6d0a01d362">
                   <div class="row mb-3">
                     <div class="col-md-6 mb-3 mb-md-0">
-                      <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        class="form-control"
-                        placeholder="First Name *"
-                        required />
+                      <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name *" required />
                     </div>
                   </div>
 
-                  <div class="mb-3">
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      class="form-control"
-                      placeholder="Phone Number" />
-                  </div>
-
-                  <div class="mb-3">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      class="form-control"
-                      placeholder="Email Address"
-                      required />
-                  </div>
-
-                  <div class="mb-3">
-                    <textarea
-                      id="message"
-                      name="message"
-                      class="form-control"
-                      placeholder="Your Message"
-                      rows="4"
-                      required></textarea>
-                  </div>
-
-                  <button type="submit" class="btn btn-primary w-100 py-1">
-                    Send Message
-                  </button>
+                  <div class="mb-3"><input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone Number" /></div>
+                  <div class="mb-3"><input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required /></div>
+                  <div class="mb-3"><textarea id="message" name="message" class="form-control" placeholder="Your Message" rows="4" required></textarea></div>
+                  <button type="submit" class="btn btn-primary w-100 py-1"> Send Message </button>
                 </form>
               </div>
             </div>
