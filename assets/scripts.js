@@ -1,67 +1,136 @@
-document.addEventListener('DOMContentLoaded', () => {
-         const form = document.querySelector('form');
-         const priceModal = document.querySelector('#price-modal');
-         const pageInput = document.querySelector('#page-count');
-         const pptInput = document.querySelector('#ppt-count');
-         const spacingInputs = document.querySelectorAll('input[name="order_spacing"]');
-         const academicInputs = document.querySelectorAll('input[name="aclevel"]');
-         const paperTypeSelect = document.querySelector('select[name="paper_type"]');
-         const subjectSelect = document.querySelector('select[name="subject_area"]');
-         const deadlineInput = document.querySelector('#deadline-input');
-         const priceInput = document.querySelector('input[name="price"]');
+document.addEventListener("DOMContentLoaded", () => {
+  // Elements
+  const form = document.querySelector("form");
+  const priceModal = document.querySelector("#price-modal");
+  const pageInput = document.querySelector("#page-count");
+  const pptInput = document.querySelector("#ppt-count");
+  const spacingInputs = document.querySelectorAll(
+    'input[name="order_spacing"]'
+  );
+  const academicInputs = document.querySelectorAll('input[name="aclevel"]');
+  const paperTypeSelect = document.querySelector('select[name="paper_type"]');
+  const subjectSelect = document.querySelector('select[name="subject_area"]');
+  const deadlineInput = document.querySelector("#deadline-input");
+  const priceInput = document.querySelector('input[name="price"]');
 
-         const updatePrice = () => {
-             const pages = parseInt(pageInput.value) || 0;
-             const slides = parseInt(pptInput.value) || 0;
-             const spacing = Array.from(spacingInputs).find(input => input.checked)?.value.split('#')[0] || 1;
-             const academic = Array.from(academicInputs).find(input => input.checked)?.value.split('#')[0] || 1;
-             const paperType = paperTypeSelect.value.split('#')[0] || 1;
-             const subject = subjectSelect.value.split('#')[0] || 1;
-             const deadline = new Date(deadlineInput.value);
-             const now = new Date();
-             const hoursDiff = (deadline - now) / 36e5;
-             const deadlineMultiplier = hoursDiff < 8 && hoursDiff > 0 ? 1.5 : 1;
+  // File Upload Handling
+  const fileInput = document.querySelector(".file-input");
+  const fileUploadArea = document.querySelector(".file-upload-area");
+  const fileNames = document.querySelector(".file-names");
 
-             const pageCost = 8 * pages * academic * paperType * subject * spacing;
-             const slideCost = 6 * slides * academic * paperType * subject;
-             const total = (pageCost + slideCost) * deadlineMultiplier;
+  fileUploadArea.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    fileNames.textContent = [...fileInput.files].map((f) => f.name).join(", ");
+  });
 
-             priceModal.querySelector('p:nth-child(1)').innerHTML = `<strong>Pages:</strong> ${pages}`;
-             priceModal.querySelector('p:nth-child(2)').innerHTML = `<strong>Spacing:</strong> ${spacing == 2 ? 'Single' : 'Double'}`;
-             priceModal.querySelector('p:nth-child(3)').innerHTML = `<strong>PPT Slides:</strong> ${slides}`;
-             priceModal.querySelector('p:nth-child(4)').innerHTML = `<strong>Level:</strong> ${Array.from(academicInputs).find(input => input.checked)?.value.split('#')[1] || 'College'}`;
-             priceModal.querySelector('p:nth-child(5)').innerHTML = `<strong>Deadline:</strong> ${deadlineInput.value ? deadline.toLocaleString() : 'Not set'}`;
-             priceModal.querySelector('h5 span').textContent = `$ ${total.toFixed(2)}`;
-             priceInput.value = total.toFixed(2);
-         };
+  // Price Calculation
+  const updatePrice = () => {
+    if (!priceModal || !pageInput || !pptInput) return;
 
-         [pageInput, pptInput, ...spacingInputs, ...academicInputs, paperTypeSelect, subjectSelect, deadlineInput].forEach(input => {
-             input.addEventListener('change', updatePrice);
-         });
+    const pages = parseInt(pageInput.value) || 0;
+    const slides = parseInt(pptInput.value) || 0;
+    const spacing =
+      Array.from(spacingInputs)
+        .find((input) => input.checked)
+        ?.value.split("#")[0] || 1;
+    const academic =
+      Array.from(academicInputs)
+        .find((input) => input.checked)
+        ?.value.split("#")[0] || 1;
+    const paperType = paperTypeSelect.value.split("#")[0] || 1;
+    const subject = subjectSelect.value.split("#")[0] || 1;
+    const deadline = new Date(deadlineInput.value);
+    const now = new Date();
+    const hoursDiff = (deadline - now) / 36e5;
+    const deadlineMultiplier = hoursDiff < 8 && hoursDiff > 0 ? 1.5 : 1;
 
-         updatePrice(); // Initial calculation
-     });
+    const pageCost = 8 * pages * academic * paperType * subject * spacing;
+    const slideCost = 6 * slides * academic * paperType * subject;
+    const total = (pageCost + slideCost) * deadlineMultiplier;
 
-document.querySelector('input[name="title"]').addEventListener('input', (e) => {
-    document.querySelector('#title-counter').textContent = e.target.value.length;
-});
-document.querySelector('textarea[name="instructions"]').addEventListener('input', (e) => {
-    document.querySelector('#instructions-counter').textContent = e.target.value.length;
-});
+    priceModal.querySelector(
+      "p:nth-child(1)"
+    ).innerHTML = `<strong>Pages:</strong> ${pages}`;
+    priceModal.querySelector(
+      "p:nth-child(2)"
+    ).innerHTML = `<strong>Spacing:</strong> ${
+      spacing == 2 ? "Single" : "Double"
+    }`;
+    priceModal.querySelector(
+      "p:nth-child(3)"
+    ).innerHTML = `<strong>PPT Slides:</strong> ${slides}`;
+    priceModal.querySelector(
+      "p:nth-child(4)"
+    ).innerHTML = `<strong>Level:</strong> ${
+      Array.from(academicInputs)
+        .find((input) => input.checked)
+        ?.value.split("#")[1] || "College"
+    }`;
+    priceModal.querySelector(
+      "p:nth-child(5)"
+    ).innerHTML = `<strong>Deadline:</strong> ${
+      deadlineInput.value ? deadline.toLocaleString() : "Not set"
+    }`;
+    priceModal.querySelector("h5 span").textContent = `$${total.toFixed(2)}`;
+    priceInput.value = total.toFixed(2);
+  };
 
-document.querySelector('#page-plus').addEventListener('click', () => {
+  // Event Listeners
+  [
+    pageInput,
+    pptInput,
+    ...spacingInputs,
+    ...academicInputs,
+    paperTypeSelect,
+    subjectSelect,
+    deadlineInput,
+  ].forEach((input) => {
+    input.addEventListener("change", updatePrice);
+  });
+
+  // +/- Buttons
+  document.querySelector("#page-plus").addEventListener("click", () => {
     pageInput.value = (parseInt(pageInput.value) || 0) + 1;
     updatePrice();
-});
-document.querySelector('#page-minus').addEventListener('click', () => {
+  });
+  document.querySelector("#page-minus").addEventListener("click", () => {
     pageInput.value = Math.max(0, (parseInt(pageInput.value) || 0) - 1);
     updatePrice();
-});
-document.querySelector('#ppt-plus').addEventListener('click', () => {
+  });
+
+  document.querySelector("#sources-plus").addEventListener("click", () => {
+    const sourcesInput = document.querySelector("#sources-count");
+    sourcesInput.value = (parseInt(sourcesInput.value) || 0) + 1;
+  });
+
+  document.querySelector("#sources-minus").addEventListener("click", () => {
+    const sourcesInput = document.querySelector("#sources-count");
+    sourcesInput.value = Math.max(0, (parseInt(sourcesInput.value) || 0) - 1);
+  });
+
+  document.querySelector("#ppt-plus").addEventListener("click", () => {
     pptInput.value = (parseInt(pptInput.value) || 0) + 1;
     updatePrice();
-});
-document.querySelector('#ppt-minus').addEventListener('click', () => {
+  });
+  document.querySelector("#ppt-minus").addEventListener("click", () => {
     pptInput.value = Math.max(0, (parseInt(pptInput.value) || 0) - 1);
     updatePrice();
+  });
+
+  // Character Counters
+  document
+    .querySelector('input[name="title"]')
+    .addEventListener("input", (e) => {
+      document.querySelector("#title-counter").textContent =
+        e.target.value.length;
+    });
+  document
+    .querySelector('textarea[name="instructions"]')
+    .addEventListener("input", (e) => {
+      document.querySelector("#instructions-counter").textContent =
+        e.target.value.length;
+    });
+
+  // Initial Calculation
+  updatePrice();
 });
