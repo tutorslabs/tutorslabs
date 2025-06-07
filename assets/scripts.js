@@ -42,7 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
          updatePrice(); // Initial calculation
      });
 
-
+document.querySelector('input[name="title"]').addEventListener('input', (e) => {
+    document.querySelector('#title-counter').textContent = e.target.value.length;
+});
+document.querySelector('textarea[name="instructions"]').addEventListener('input', (e) => {
+    document.querySelector('#instructions-counter').textContent = e.target.value.length;
+});
 
 document.querySelector('#page-plus').addEventListener('click', () => {
     pageInput.value = (parseInt(pageInput.value) || 0) + 1;
