@@ -26,348 +26,263 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
    <link rel="preload" as="image" href="images/tutorslabs-logo.png" />
 </head>
-<!-- Begin Page Content -->
-<div class="container d-flex justify-content-left">
-    <!-- Main Order Card -->
-    <div class="card shadow mb-4 w-75">
-        <div class="card-header py-3 bg-primary text-white">
-            <h5 class="m-0 font-weight-bold">Place an Order</h5>
-            <p class="mb-0">It's fast, secure, and confidential <i class="fas fa-user-lock ml-2"></i></p>
-        </div>
-
-        <div class="card-body">
-            <!-- Floating Price Summary Card -->
-            <div id="price-modal" class="card shadow" style="position: fixed; top: 100px; right: 30px; width: 300px; z-index: 9999;">
-                <div class="card-header bg-primary text-white py-2">
-                    <h6 class="m-0 font-weight-bold">Order Summary</h6>
-                </div>
-                <div class="card-body p-3">
-                    <p class="mb-1"><strong>Pages:</strong> 0</p>
-                    <p class="mb-1"><strong>Spacing:</strong> Double</p>
-                    <p class="mb-1"><strong>PPT Slides:</strong> 0</p>
-                    <p class="mb-1"><strong>Level:</strong> College</p>
-                    <p class="mb-1"><strong>Deadline:</strong> Date</p>
-                    <div id="price-loading" style="display: none;">
-                        <small class="text-muted">Calculating...</small>
-                    </div>
-                    <hr class="my-2">
-                    <h5 class="mb-0">Total: <span class="text-primary">$ Total</span></h5>
-                </div>
+<body>
+    <!-- Begin Page Content -->
+    <div class="container d-flex justify-content-left">
+        <!-- Main Order Card -->
+        <div class="card shadow mb-4 w-75">
+            <div class="card-header py-3 bg-primary text-white">
+                <h5 class="m-0 font-weight-bold">Place an Order</h5>
+                <p class="mb-0">It's fast, secure, and confidential <i class="fas fa-user-lock ml-2"></i></p>
             </div>
 
-            <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="access_key" value="YOUR_ACCESS_KE">
-
-                <!-- Paper Details Section -->
-                <div class="card mb-4">
-                    <div class="card-header bg-light py-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Paper Details</h6>
+            <div class="card-body">
+                <!-- Floating Price Summary Card -->
+                <div id="price-modal" class="card shadow" style="position: fixed; top: 100px; right: 30px; width: 300px; z-index: 9999;">
+                    <div class="card-header bg-primary text-white py-2">
+                        <h6 class="m-0 font-weight-bold">Order Summary</h6>
                     </div>
-                    <div class="card-body">
-                        <!-- Academic Level -->
-                        <div class="form-group mb-4">
-                            <label class="font-weight-bold text-gray-800">Academic Level</label>
-                            <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                                <label class="btn btn-outline-primary active">
-                                    <input type="radio" name="aclevel" value="1#College" checked> College
-                                </label>
-                                <label class="btn btn-outline-primary">
-                                    <input type="radio" name="aclevel" value="1.25#Undergraduate"> Undergraduate
-                                </label>
-                                <label class="btn btn-outline-primary">
-                                    <input type="radio" name="aclevel" value="1.5#Masters"> Masters
-                                </label>
-                                <label class="btn btn-outline-primary">
-                                    <input type="radio" name="aclevel" value="1.6#PhD"> PhD
-                                </label>
+                    <div class="card-body p-3">
+                        <p class="mb-1"><strong>Pages:</strong> 0</p>
+                        <p class="mb-1"><strong>Spacing:</strong> Double</p>
+                        <p class="mb-1"><strong>PPT Slides:</strong> 0</p>
+                        <p class="mb-1"><strong>Level:</strong> College</p>
+                        <p class="mb-1"><strong>Deadline:</strong> Date</p>
+                        <div id="price-loading" style="display: none;">
+                            <small class="text-muted">Calculating...</small>
+                        </div>
+                        <hr class="my-2">
+                        <h5 class="mb-0">Total: <span class="text-primary">$ Total</span></h5>
+                    </div>
+                </div>
+
+                <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KE">
+
+                    <!-- Paper Details Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="m-0 font-weight-bold text-primary">Paper Details</h6>
+                        </div>
+                        <div class="card-body">
+                            <!-- Academic Level -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold text-gray-800">Academic Level</label>
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary active">
+                                        <input type="radio" name="aclevel" value="1#College" checked> College
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="aclevel" value="1.25#Undergraduate"> Undergraduate
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="aclevel" value="1.5#Masters"> Masters
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="aclevel" value="1.6#PhD"> PhD
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Paper Type and Subject -->
+                            <div class="row">
+                                <div class="form-group col-md-6 mb-4">
+                                    <label class="font-weight-bold text-gray-800">Type of Paper</label>
+                                    <select class="form-control" required name="paper_type">
+                                        <option value="1#essay" selected>Essay (Any Type)</option>
+                                        <option value="1#Assignment">Assignment</option>
+                                        <option value="1#Content (Any Type)">Content (Any Type)</option>
+                                        <option value="1.2#Admission Essay">Admission Essay</option>
+                                        <option value="1#Annotated Bibliography">Annotated Bibliography</option>
+                                        <option value="1#others">Other options</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 mb-4">
+                                    <label class="font-weight-bold text-gray-800">Subject Area</label>
+                                    <select class="form-control" required name="subject_area">
+                                        <option value="1#Any" selected>Select Subject</option>
+                                        <option value="1#Archaeology">Archaeology</option>
+                                        <option value="1.2#Architecture">Architecture</option>
+                                        <option value="1#Arts">Arts</option>
+                                        <option value="1#Astronomy">Astronomy</option>
+                                        <option value="1.2#Biology">Biology</option>
+                                        <option value="1#Business">Business</option>
+                                        <option value="1.2#Chemistry">Chemistry</option>
+                                        <option value="1#others">Other options</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Title -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold text-gray-800">Title</label>
+                                <input type="text" class="form-control" placeholder="Enter topic" required name="title" maxlength="200">
+                                <small class="form-text text-muted"><span id="title-counter">0</span>/200 characters</small>
+                            </div>
+
+                            <!-- Instructions -->
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold text-gray-800">Paper Instructions</label>
+                                <textarea class="form-control" rows="4" name="instructions" maxlength="2000"></textarea>
+                                <small class="form-text text-muted"><span id="instructions-counter">0</span>/2000 characters</small>
+                                <small class="form-text text-muted">
+                                    Write anything you feel is important for the writer to consider.
+                                    An outline, a grading scale, and other documents may be uploaded as additional materials.
+                                </small>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Paper Type and Subject -->
-                        <div class="row">
+                    <!-- File Upload Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="m-0 font-weight-bold text-primary">Additional Materials</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="file-upload-area border rounded p-4 text-center" style="cursor: pointer; border: 2px dashed #adb5bd;">
+                                <i class="fas fa-cloud-upload-alt fa-3x text-gray-400 mb-3"></i>
+                                <p class="mb-1">Browse or Drag and Drop files here</p>
+                                <small class="text-muted">(Max 10MB each)</small>
+                                <input type="file" class="d-none file-input" name="attachment_path" multiple>
+                                <div class="mt-2 text-muted small file-names"></div>
+                                <div class="text-danger small mt-1 error-msg"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formatting Section -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="m-0 font-weight-bold text-primary">Formatting</h6>
+                        </div>
+                        <div class="card-body row">
+                            <div class="form-group col-md-3 mb-4">
+                                <label class="font-weight-bold text-gray-800">Number of Pages</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-primary" type="button" id="page-minus">-</button>
+                                    </div>
+                                    <input type="text" id="page-count" class="form-control text-center" value="0" min="0" name="pages">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" id="page-plus">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 mb-4">
+                                <label class="font-weight-bold text-gray-800">Number of Words</label>
+                                <div class="input-group">
+                                    <input type="number" id="word-count" class="form-control text-center" min="50" value="275" name="words">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3 mb-4">
+                                <label class="font-weight-bold text-gray-800">Sources to be Cited</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-primary" type="button" id="sources-minus">-</button>
+                                    </div>
+                                    <input type="text" id="sources-count" class="form-control text-center" value="0" min="0" name="sources">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" id="sources-plus">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3 mb-4">
+                                <label class="font-weight-bold text-gray-800">PowerPoint Slides</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-primary" type="button" id="ppt-minus">-</button>
+                                    </div>
+                                    <input type="text" id="ppt-count" class="form-control text-center" value="0" min="0" name="pptslides">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" id="ppt-plus">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-2">
+                        <div class="card-body row">
                             <div class="form-group col-md-6 mb-4">
-                                <label class="font-weight-bold text-gray-800">Type of Paper</label>
-                                <select class="form-control" required name="paper_type">
-                                    <option value="1#essay" selected>Essay (Any Type)</option>
-                                    <option value="1#Assignment">Assignment</option>
-                                    <option value="1#Content (Any Type)">Content (Any Type)</option>
-                                    <option value="1.2#Admission Essay">Admission Essay</option>
-                                    <option value="1#Annotated Bibliography">Annotated Bibliography</option>
-                                    <option value="1#Argumentative Essay">Argumentative Essay</option>
-                                    <option value="1#Article Review">Article Review</option>
-                                    <option value="1#Book/Movie Review">Book/Movie Review</option>
-                                    <option value="1#Business Plan">Business Plan</option>
-                                    <option value="1.2#Capstone Project">Capstone Project</option>
-                                    <option value="1#Case Study">Case Study</option>
-                                    <option value="1#Coursework">Coursework</option>
-                                    <option value="1#Creative Writing">Creative Writing</option>
-                                    <option value="1#Critical Thinking">Critical Thinking</option>
-                                    <option value="1.2#Dissertation">Dissertation</option>
-                                    <option value="1.2#Dissertation chapter">Dissertation chapter</option>
-                                    <option value="1#Lab Report">Lab Report</option>
-                                    <option value="1.2#Math Problem">Math Problem</option>
-                                    <option value="1#Research Paper">Research Paper</option>
-                                    <option value="1#Research Proposal">Research Proposal</option>
-                                    <option value="1#Research Summary">Research Summary</option>
-                                    <option value="1#Scholarship Essay">Scholarship Essay</option>
-                                    <option value="1#Speech">Speech</option>
-                                    <option value="1#Statistic Project">Statistic Project</option>
-                                    <option value="1#Term Paper">Term Paper</option>
-                                    <option value="1#Thesis/Thesis Chapter">Thesis/Thesis Chapter</option>
-                                    <option value="1#Presentation or Speech">Presentation or Speech</option>
-                                    <option value="0.8#Presentation or Speech">PowerPoint Presentation</option>
-                                    <option value="1#Q&A">Q&A</option>
-                                    <option value="1#speech work">speech work</option>
-                                    <option value="1#Application Paper">Application Paper</option>
-                                    <option value="1#Analysis">Analysis</option>
-                                    <option value="1#Memo/Letter">Memo/Letter</option>
-                                    <option value="0.5#Outline">Outline</option>
-                                    <option value="1#Personal reflection">Personal reflection</option>
-                                    <option value="0.7#Presentation/PPT">Presentation/PPT</option>
-                                    <option value="1#Report (Any type)">Report (Any type)</option>
-                                    <option value="1#Response Essay">Response Essay</option>
-                                    <option value="1#Acceptance letter">Acceptance letter</option>
-                                    <option value="2#Online Exam">Online Exam</option>
-                                    <option value="0.8#Revision Paper">Revision Paper</option>
-                                    <option value="1.3#Blog Writing">Blog Writing</option>
-                                    <option value="1#Executive Summary">Executive Summary</option>
-                                    <option value="0.6#Extended Revision">Extended Revision</option>
-                                    <option value="1.5#Microsoft Project">Microsoft Project</option>
-                                    <option value="1#Progressive Paper">Progressive Paper</option>
-                                    <option value="1#Dissertation Editing">Dissertation Editing</option>
-                                    <option value="1.5#Grant proposal">Grant proposal</option>
-                                    <option value="0.6#Paraphrase">Paraphrase</option>
-                                    <option value="1.5#Nursing calculations">Nursing calculations</option>
-                                    <option value="0.8#Combined Sections">Combined Sections</option>
-                                    <option value="1#Dissertation editing">Dissertation editing</option>
-                                    <option value="0.5#Proofreading/editing">Proofreading/editing</option>
-                                    <option value="2#Brochure">Brochure</option>
-                                    <option value="0.5#Paper Editing">Paper Editing</option>
-                                    <option value="1#Other Paper Types">Other</option>
+                                <label class="font-weight-bold text-gray-800">Paper Format</label>
+                                <select class="form-control" name="paper_format">
+                                    <option>APA</option>
+                                    <option>MLA</option>
+                                    <option>Chicago</option>
+                                    <option>Harvard</option>
+                                    <option>IEEE</option>
+                                    <option>Turabian</option>
+                                    <option>Vancouver</option>
+                                    <option>ASA</option>
+                                    <option>AMA</option>
+                                    <option>CSE</option>
+                                    <option>Bluebook</option>
+                                    <option>OSCOLA</option>
+                                    <option>Not Applicable</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6 mb-4">
-                                <label class="font-weight-bold text-gray-800">Subject Area</label>
-                                <select class="form-control" required name="subject_area">
-                                    <option value="1#Any" selected>Select Subject</option>
-                                    <option value="1#Archaeology">Archaeology</option>
-                                    <option value="1.2#Architecture">Architecture</option>
-                                    <option value="1#Arts">Arts</option>
-                                    <option value="1#Astronomy">Astronomy</option>
-                                    <option value="1.2#Biology">Biology</option>
-                                    <option value="1#Business">Business</option>
-                                    <option value="1.2#Chemistry">Chemistry</option>
-                                    <option value="1#Childcare">Childcare</option>
-                                    <option value="1#Computers">Computers</option>
-                                    <option value="1#Counseling">Counseling</option>
-                                    <option value="1#Criminology">Criminology</option>
-                                    <option value="1#Economics">Economics</option>
-                                    <option value="1#Education">Education</option>
-                                    <option value="1.2#Engineering">Engineering</option>
-                                    <option value="1#Environmental-Studies">Environmental-Studies</option>
-                                    <option value="1#Ethics">Ethics</option>
-                                    <option value="1#Ethnic-Studies">Ethnic-Studies</option>
-                                    <option value="1#Finance">Finance</option>
-                                    <option value="1#Food-Nutrition">Food-Nutrition</option>
-                                    <option value="1#Geography">Geography</option>
-                                    <option value="1.3#Healthcare">Healthcare</option>
-                                    <option value="1#History">History</option>
-                                    <option value="1.2#Law">Law</option>
-                                    <option value="1#Linguistics">Linguistics</option>
-                                    <option value="1#Literature">Literature</option>
-                                    <option value="1#Management">Management</option>
-                                    <option value="1.3#Mathematics">Mathematics</option>
-                                    <option value="2#Medicine">Medicine</option>
-                                    <option value="1#Music">Music</option>
-                                    <option value="1.3#Nursing">Nursing</option>
-                                    <option value="1#Philosophy">Philosophy</option>
-                                    <option value="1#Physical-Education">Physical-Education</option>
-                                    <option value="1.2#Physics">Physics</option>
-                                    <option value="1#Political-Science">Political-Science</option>
-                                    <option value="1.2#Programming">Programming</option>
-                                    <option value="1#Psychology">Psychology</option>
-                                    <option value="1#Religion">Religion</option>
-                                    <option value="1#Sociology">Sociology</option>
-                                    <option value="1.6#Statistics">Statistics</option>
-                                    <option value="1#others">Other Subjects</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Title -->
-                        <div class="form-group mb-4">
-                            <label class="font-weight-bold text-gray-800">Title</label>
-                            <input type="text" class="form-control" placeholder="Enter topic" required name="title" maxlength="200">
-                            <small class="form-text text-muted"><span id="title-counter">0</span>/200 characters</small>
-                        </div>
-
-                        <!-- Instructions -->
-                        <div class="form-group mb-4">
-                            <label class="font-weight-bold text-gray-800">Paper Instructions</label>
-                            <textarea class="form-control" rows="4" name="instructions" maxlength="2000"></textarea>
-                            <small class="form-text text-muted"><span id="instructions-counter">0</span>/2000 characters</small>
-                            <small class="form-text text-muted">
-                                Write anything you feel is important for the writer to consider.
-                                An outline, a grading scale, and other documents may be uploaded as additional materials.
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- File Upload Section -->
-                <div class="card mb-4">
-                    <div class="card-header bg-light py-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Additional Materials</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="file-upload-area border rounded p-4 text-center" style="cursor: pointer; border: 2px dashed #adb5bd;">
-                            <i class="fas fa-cloud-upload-alt fa-3x text-gray-400 mb-3"></i>
-                            <p class="mb-1">Browse or Drag and Drop files here</p>
-                            <small class="text-muted">(Max 10MB each)</small>
-                            <input type="file" class="d-none file-input" name="attachment_path" multiple>
-                            <div class="mt-2 text-muted small file-names"></div>
-                            <div class="text-danger small mt-1 error-msg"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Formatting Section -->
-                <div class="card mb-4">
-                    <div class="card-header bg-light py-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Formatting</h6>
-                    </div>
-                    <div class="card-body row">
-                        <div class="form-group col-md-3 mb-4">
-                            <label class="font-weight-bold text-gray-800">Number of Pages</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary" type="button" id="page-minus">-</button>
-                                </div>
-                                <input type="text" id="page-count" class="form-control text-center" value="0" min="0" name="pages">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button" id="page-plus">+</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3 mb-4">
-                            <label class="font-weight-bold text-gray-800">Number of Words</label>
-                            <div class="input-group">
-                                <input type="number" id="word-count" class="form-control text-center" min="50" value="275" name="words">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-md-3 mb-4">
-                            <label class="font-weight-bold text-gray-800">Sources to be Cited</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary" type="button" id="sources-minus">-</button>
-                                </div>
-                                <input type="text" id="sources-count" class="form-control text-center" value="0" min="0" name="sources">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button" id="sources-plus">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-3 mb-4">
-                            <label class="font-weight-bold text-gray-800">PowerPoint Slides</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary" type="button" id="ppt-minus">-</button>
-                                </div>
-                                <input type="text" id="ppt-count" class="form-control text-center" value="0" min="0" name="pptslides">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button" id="ppt-plus">+</button>
+                                <label class="font-weight-bold text-gray-800 d-block">Spacing</label>
+                                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary active">
+                                        <input type="radio" name="order_spacing" value="1#Double" checked> Double
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" name="order_spacing" value="2#Single"> Single
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <hr class="my-2">
-                    <div class="card-body row">
-                        <div class="form-group col-md-6 mb-4">
-                            <label class="font-weight-bold text-gray-800">Paper Format</label>
-                            <select class="form-control" name="paper_format">
-                                <option>APA</option>
-                                <option>MLA</option>
-                                <option>Chicago</option>
-                                <option>Harvard</option>
-                                <option>IEEE</option>
-                                <option>Turabian</option>
-                                <option>Vancouver</option>
-                                <option>ASA</option>
-                                <option>AMA</option>
-                                <option>CSE</option>
-                                <option>Bluebook</option>
-                                <option>OSCOLA</option>
-                                <option>Not Applicable</option>
-                            </select>
+
+                    <!-- Deadline & Payment -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-light py-2">
+                            <h6 class="m-0 font-weight-bold text-primary">Completion Details</h6>
                         </div>
-                        <div class="form-group col-md-6 mb-4">
-                            <label class="font-weight-bold text-gray-800 d-block">Spacing</label>
-                            <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                                <label class="btn btn-outline-primary active">
-                                    <input type="radio" name="order_spacing" value="1#Double" checked> Double
-                                </label>
-                                <label class="btn btn-outline-primary">
-                                    <input type="radio" name="order_spacing" value="2#Single"> Single
-                                </label>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <!-- Deadline -->
+                                <div class="form-group col-md-6">
+                                    <label class="font-weight-bold text-gray-800">Deadline</label>
+                                    <input type="datetime-local" class="form-control" name="deadline" id="deadline-input" required>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Deadline & Payment -->
-                <div class="card mb-4">
-                    <div class="card-header bg-light py-2">
-                        <h6 class="m-0 font-weight-bold text-primary">Completion Details</h6>
+                    <!--Hidden input to capture the calculated price: -->
+                    <input type="hidden" name="price" value="<?= number_format($calculatedPrice, 2) ?>">
+
+                    <!-- Submit Button -->
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary btn-block py-3 font-weight-bold">
+                            <i class="fas fa-lock me-2"></i> SAFE CHECKOUT
+                        </button>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-
-                            <!-- Deadline -->
-                            <div class="form-group col-md-6">
-                                <label class="font-weight-bold text-gray-800">Deadline</label>
-                                <input type="datetime-local" class="form-control" name="deadline" id="deadline-input" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Hidden input to capture the calculated price: -->
-                <input type="hidden" name="price" value="<?= number_format($calculatedPrice, 2) ?>">
-
-                <!-- Submit Button -->
-                <div class="form-group mt-4">
-                    <button type="submit" class="btn btn-primary btn-block py-3 font-weight-bold">
-                        <i class="fas fa-lock me-2"></i> SAFE CHECKOUT
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- End of Main Content -->
+    <!-- End of Main Content -->
 
-<!--Footer Section -->
-  <footer class="main-footer bg-dark text-white py-4">
-    <div class="container py-4">
-        <div class="footer-bottom pt-4 mt-4 border-top border-secondary">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <p class="mb-3 mb-md-0"> &copy; 2025 TutorsLabs. All Rights Reserved.</p>
-          <div class="footer-links d-flex gap-3">
-            <a href="#" class="text-decoration-none text-white-50">Terms of Service</a>
-            <a href="#" class="text-decoration-none text-white-50">Privacy Policy</a>
-            <a href="#" class="text-decoration-none text-white-50">Cookie Policy</a>
-            <a href="#" class="text-decoration-none text-white-50">Refund Policy</a>
-          </div>
+    <!--Footer Section -->
+    <footer class="main-footer bg-dark text-white py-4">
+        <div class="container py-4">
+            <div class="footer-bottom pt-4 mt-4 border-top border-secondary">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <p class="mb-3 mb-md-0"> &copy; 2025 TutorsLabs. All Rights Reserved.</p>
+            <div class="footer-links d-flex gap-3">
+                <a href="#" class="text-decoration-none text-white-50">Terms of Service</a>
+                <a href="#" class="text-decoration-none text-white-50">Privacy Policy</a>
+                <a href="#" class="text-decoration-none text-white-50">Cookie Policy</a>
+                <a href="#" class="text-decoration-none text-white-50">Refund Policy</a>
+            </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
